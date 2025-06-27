@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.header__left-content {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.header__right-content {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
