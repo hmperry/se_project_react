@@ -2,6 +2,7 @@ import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import { getWeather } from "../../utils/weatherAPI";
 
@@ -26,6 +27,7 @@ function App() {
       <div className="app__content">
         <Header location={location} />
         <Main />
+        <Footer />
       </div>
     </div>
   );
