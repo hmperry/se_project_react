@@ -1,0 +1,30 @@
+.weatherCard {
+  background-color: rgba(0, 163, 255, 1);
+  height: 80px;
+  border-radius: 12px;
+  align-items: center;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.weatherCard__content {
+  font-weight: 700;
+  font-family: "Cabinet Grotesk";
+  font-size: 36px;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 1);
+  padding-left: 16px;
+}
+
+.weatherCard__content-cloud {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.weatherCard__content-sun {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

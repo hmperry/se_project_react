@@ -1,18 +1,33 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 40px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding-bottom: 28px;
 }
 
-.header__left-content {
+.header__date-and-location {
   display: flex;
   align-items: center;
-  column-gap: 24px;
+  padding: 11px 0 5px 24px;
 }
 
-.header__right-content {
+.header__user-content {
   display: flex;
   align-items: center;
   column-gap: 12px;
+  list-style-type: none;
+}
+
+.header__add-clothes {
+  margin-left: auto;
+  padding: 0 24px 0 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
+  background-color: none;
 }

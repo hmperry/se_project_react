@@ -1,8 +1,17 @@
 @font-face {
-  font-family: "Poppins";
-  font-style: normal;
+  font-family: "Cabinet Grotesk";
+  font-style: Bold;
   /* Replace with the appropriate font weight */
-  font-weight: 400;
+  font-weight: 700;
   /* Replace with the correct file path */
-  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+  src: url("./fonts/CabinetGrotesk-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  font-style: medium;
+  /* Replace with the appropriate font weight */
+  font-weight: 500;
+  /* Replace with the correct file path */
+  src: url("./fonts/CabinetGrotesk-Medium.otf") format("opentype");
 }

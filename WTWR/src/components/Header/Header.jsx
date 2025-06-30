@@ -1,21 +1,23 @@
-function Header() {
+import "./Header.css";
+import logo from "../../assets/wtwrLogo.svg";
+import avatar from "../../assets/placeholderAvatar.png";
+
+function Header({ location }) {
+  const currentDate = new Date().toLocaleString("default", {
+    month: "long",
+    day: "numeric",
+  });
   return (
     <header className="header">
-      <div className="header__left-content">
-        <img
-          src="../src/assets/wtwrLogo.svg"
-          alt="What to Wear Logo"
-          className="header__logo"
-        />
-        <div>Date and Location</div>
+      <img src={logo} alt="What to Wear Logo" className="header__logo" />
+      <div className="header__date-and-location">
+        {currentDate}, {location}
       </div>
-      <div className="header__right-content">
-        + Add clothes Terrence Tegegne
-        <img
-          src="../src/assets/placeholderAvatar.png"
-          alt="User Avatar"
-          className="header__avatar"
-        />
+
+      <button className="header__add-clothes">+ Add Clothes</button>
+      <div className="header__user-content">
+        <li>Terrence Tegegne</li>
+        <img src={avatar} alt="User Avatar" className="header__avatar" />
       </div>
     </header>
   );

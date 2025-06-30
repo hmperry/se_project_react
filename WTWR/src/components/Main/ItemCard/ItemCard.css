@@ -1,0 +1,54 @@
+.itemCard {
+  margin: 0;
+  padding: 0;
+}
+
+.itemCard__heading {
+  margin: 0;
+  padding: 40px 0 34px 0;
+  font-weight: 700;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  line-height: 100%;
+  color: rgba(0, 0, 0, 1);
+}
+
+.itemCard__tile {
+  width: 325px;
+  height: 328px;
+  border-radius: 10px;
+  border: 1px;
+  border-color: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+}
+
+.itemCard__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.itemCard__text {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 2px 12px;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-weight: 700;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 20px;
+}
+
+.itemCard__image {
+  object-fit: cover;
+  /* position: absolute; */
+  /* z-index: -1; */
+  width: 100%;
+}
