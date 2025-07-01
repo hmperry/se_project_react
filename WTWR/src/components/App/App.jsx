@@ -6,23 +6,41 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 
-import { getWeather } from "../../utils/weatherAPI";
+import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
-    type: "hot",
+    type: "",
     temp: { F: 999, C: 999 },
+    city: "",
   });
+
+  const [activeModal, setActiveModal] = useState("");
+  const [selectedCard, setSelectedCard] = useState({});
+
+  const handleCardClick = (card) => {
+    setActiveModal("preview");
+    setSelectedCard(card);
+  };
+
+  const handleAddClick = () => {
+    setActiveModal("add-garment");
+  };
+
+  const closeActiveModal = () => {
+    setActiveModal("");
+    console.log("Yes?");
+  };
 
   const [location, setLocation] = useState(null);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
-        setLocation(data.name);
-        setWeatherData({ ...weatherData, temp: data.main.temp });
+        const filteredWeatherData = filterWeatherData(data);
+        setWeatherData(filteredWeatherData);
       })
       .catch(console.error);
   }, []);
@@ -30,11 +48,16 @@ function App() {
   return (
     <div className="app">
       <div className="app__content">
-        <Header location={location} />
-        <Main weatherData={weatherData} />
+        <Header weatherData={weatherData} handleAddClick={handleAddClick} />
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
-      <ModalWithForm title="New garment" buttonText="Add Garment">
+      <ModalWithForm
+        title="New garment"
+        buttonText="Add Garment"
+        activeModal={activeModal}
+        closeActiveModal={closeActiveModal}
+      >
         <label htmlFor="name" className="modal__label">
           Name
           <input
@@ -86,7 +109,11 @@ function App() {
           </label>
         </fieldset>
       </ModalWithForm>
-      <ItemModal />
+      <ItemModal
+        activeModal={activeModal}
+        selectedCard={selectedCard}
+        closeActiveModal={closeActiveModal}
+      />
     </div>
   );
 }

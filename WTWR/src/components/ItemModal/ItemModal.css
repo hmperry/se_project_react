@@ -17,13 +17,41 @@
   background-color: rgba(255, 255, 255, 1);
   border: none;
   border-radius: 16px;
-  width: 610px;
-  height: 498px;
+  width: 498px;
+  height: 610px;
   top: 106px;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 28px;
+  /* padding: 28px; */
   box-sizing: border-box;
-  row-gap: 24px;
+  /* row-gap: 24px; */
+  overflow: hidden;
+}
+
+.modal__footer {
+  padding: 20px 0 32px 32px;
+  background-color: rgba(243, 243, 243, 1);
+}
+
+.modal__caption {
+  padding: 0 0 12px 0;
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__weather {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__close-preview {
+  background-image: url("../../assets/close_white.png");
+  height: 16px;
+  width: 16px;
 }

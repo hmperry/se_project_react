@@ -3,8 +3,8 @@ import "./Main.css";
 import ItemCard from "./ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants.js";
 
-function Main({ weatherData }) {
-  const temp = Math.round(weatherData.temp);
+function Main({ weatherData, handleCardClick }) {
+  const temp = Math.round(weatherData.temp.F);
   return (
     <section className="main">
       <WeatherCard weatherData={weatherData} temp={temp} />
@@ -17,7 +17,13 @@ function Main({ weatherData }) {
             return item.weather === weatherData.type;
           })
           .map((item) => {
-            return <ItemCard key={item._id} item={item} />;
+            return (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onCardClick={handleCardClick}
+              />
+            );
           })}
       </ul>
     </section>
