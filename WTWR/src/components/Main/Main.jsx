@@ -1,14 +1,25 @@
 import WeatherCard from "./WeatherCard/WeatherCard";
 import "./Main.css";
 import ItemCard from "./ItemCard/ItemCard";
+import { defaultClothingItems } from "../../utils/constants.js";
 
-function Main() {
+function Main({ weatherData }) {
+  const temp = Math.round(weatherData.temp);
   return (
     <section className="main">
-      <div className="main__content">
-        <WeatherCard />
-        <ItemCard />
-      </div>
+      <WeatherCard weatherData={weatherData} temp={temp} />
+      <h1 className="main__heading">
+        Today is {temp}&deg; F / Your may want to wear:
+      </h1>
+      <ul className="cards__list">
+        {defaultClothingItems
+          .filter((item) => {
+            return item.weather === weatherData.type;
+          })
+          .map((item) => {
+            return <ItemCard key={item._id} item={item} />;
+          })}
+      </ul>
     </section>
   );
 }
