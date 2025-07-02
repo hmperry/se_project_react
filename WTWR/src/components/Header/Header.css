@@ -20,6 +20,7 @@
   align-items: center;
   column-gap: 12px;
   list-style-type: none;
+  visibility: visible;
 }
 
 .header__add-clothes {
@@ -30,4 +31,46 @@
   line-height: 24px;
   border: none;
   background-color: none;
+  visibility: visible;
+}
+
+@media screen and (max-width: 710px) {
+  .header__add-clothes {
+    visibility: hidden;
+  }
+
+  .header__user-content {
+    visibility: hidden;
+  }
+
+  .header__menu {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+    box-sizing: content-box;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .header__menu-icon {
+    padding: 16px 8px;
+    margin: 0;
+    width: 28px;
+    height: 12px;
+  }
+
+  .header {
+    display: block;
+  }
+
+  .header__date-and-location {
+    display: flex;
+    align-items: center;
+    padding: 32px 0 16px 0px;
+  }
 }
