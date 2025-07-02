@@ -1,5 +1,6 @@
 .weatherCard {
-  background-color: rgba(0, 163, 255, 1);
+  /* background-color: rgba(0, 163, 255, 1); */
+
   height: 80px;
   border-radius: 12px;
   align-items: center;
@@ -15,16 +16,10 @@
   line-height: 40px;
   color: rgba(255, 255, 255, 1);
   padding-left: 16px;
+  z-index: 1;
 }
 
-.weatherCard__content-cloud {
+.weatherCard__image {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-}
-
-.weatherCard__content-sun {
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  width: 100%;
 }
