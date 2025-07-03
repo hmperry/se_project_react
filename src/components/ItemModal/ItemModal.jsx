@@ -1,5 +1,5 @@
 import "../ModalWithForm/ModalWithForm";
-import "../ItemModal/itemModal.css";
+import "../ItemModal/ItemModal.css";
 
 function ItemModal({ activeModal, selectedCard, closeActiveModal }) {
   return (
