@@ -29,6 +29,11 @@ function App() {
     setActiveModal("add-garment");
   };
 
+  const handleMenuClick = () => {
+    setActiveModal("profile-menu");
+    console.log("Works?");
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
     console.log("Yes?");
@@ -48,8 +53,18 @@ function App() {
   return (
     <div className="app">
       <div className="app__content">
-        <Header weatherData={weatherData} handleAddClick={handleAddClick} />
-        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Header
+          weatherData={weatherData}
+          handleAddClick={handleAddClick}
+          handleMenuClick={handleMenuClick}
+        />
+        <Main
+          weatherData={weatherData}
+          handleCardClick={handleCardClick}
+          handleMenuClick={handleMenuClick}
+          activeModal={activeModal}
+          closeActiveModal={closeActiveModal}
+        />
         <Footer />
       </div>
       <ModalWithForm

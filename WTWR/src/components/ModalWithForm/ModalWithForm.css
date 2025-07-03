@@ -12,6 +12,7 @@
   line-height: 20px;
   font-weight: 700;
   visibility: hidden;
+  z-index: 2;
 }
 
 .modal__open {
@@ -36,9 +37,10 @@
 .modal__close {
   border: none;
   background-image: url("../../assets/close.svg");
+  background-color: #ffffff;
   height: 20px;
   width: 20px;
-  object-fit: fill;
+  background-size: contain;
   position: absolute;
   top: 20px;
   right: 28px;
@@ -100,4 +102,21 @@
   font-size: 16px;
   line-height: 20px;
   font-family: "Cabinet Grotesk";
+}
+
+@media screen and (max-width: 750px) {
+  .modal__form {
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    width: 375px;
+    height: 455px;
+    top: 367px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    box-sizing: border-box;
+    row-gap: 24px;
+  }
 }

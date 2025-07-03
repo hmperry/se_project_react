@@ -25,12 +25,3 @@
   height: 80px;
   right: 0;
 }
-
-@media screen and (max-width: 710px) {
-  .weatherCard {
-    top: 134px;
-  }
-
-  .weatherCard__image {
-  }
-}

@@ -3,7 +3,7 @@ import logo from "../../assets/wtwrLogo.svg";
 import avatar from "../../assets/placeholderAvatar.png";
 import menu from "../../assets/hamburger_menu.png";
 
-function Header({ weatherData, handleAddClick }) {
+function Header({ weatherData, handleAddClick, handleMenuClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -26,7 +26,7 @@ function Header({ weatherData, handleAddClick }) {
         <li>Terrence Tegegne</li>
         <img src={avatar} alt="User Avatar" className="header__avatar" />
       </div>
-      <button className="header__menu">
+      <button className="header__menu" type="button" onClick={handleMenuClick}>
         <img src={menu} alt="" className="header__menu-icon" />
       </button>
     </header>

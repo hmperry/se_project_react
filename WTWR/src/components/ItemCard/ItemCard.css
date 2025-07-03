@@ -32,3 +32,18 @@
   object-fit: cover;
   width: 100%;
 }
+
+@media screen and (max-width: 750px) {
+  .itemCard__tile {
+    width: 164px;
+    height: 164px;
+  }
+
+  .itemCard__heading {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 2px 12px;
+    border-radius: 4px;
+    margin-top: 7px;
+  }
+}

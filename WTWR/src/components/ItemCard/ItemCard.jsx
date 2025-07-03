@@ -1,6 +1,4 @@
 import "./ItemCard.css";
-import tshirt from "../../../assets/tshirt.png";
-import cap from "../../../assets/cap.png";
 
 function ItemCard({ item, onCardClick }) {
   const handleCardClick = () => {

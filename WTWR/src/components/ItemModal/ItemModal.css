@@ -23,9 +23,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  /* padding: 28px; */
+
   box-sizing: border-box;
-  /* row-gap: 24px; */
+
   overflow: hidden;
 }
 
@@ -54,4 +54,13 @@
   background-image: url("../../assets/close_white.png");
   height: 16px;
   width: 16px;
+}
+
+@media screen and (max-width: 750px) {
+  .itemModal__preview {
+    border-radius: 12px;
+    width: 343px;
+    height: 463px;
+    top: 180px;
+  }
 }

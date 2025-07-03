@@ -1,8 +1,5 @@
 import "./WeatherCard.css";
-import {
-  weatherOptions,
-  defaultWeatherOptions,
-} from "../../../utils/constants";
+import { weatherOptions, defaultWeatherOptions } from "../../utils/constants";
 
 function WeatherCard({ weatherData, temp }) {
   const filteredOptions = weatherOptions.filter((option) => {
@@ -11,9 +8,6 @@ function WeatherCard({ weatherData, temp }) {
       option.condition === weatherData.condition
     );
   });
-
-  // const weatherOptionUrl = filteredOptions[0]?.url;
-  // const weatherOptionCondition = filteredOptions[0]?.condition;
 
   let weatherOption;
 
