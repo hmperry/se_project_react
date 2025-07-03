@@ -1,4 +1,4 @@
-@import url(./src/vendor/normalize.css);
-@import url(./src/vendor/fonts.css);
-@import url(./src/components/Main/Main.css);
-@import url(./src/components/WeatherCard/WeatherCard.css);
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+@import url(./components/Main/Main.css);
+@import url(./components/WeatherCard/WeatherCard.css);
