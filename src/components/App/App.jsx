@@ -19,6 +19,7 @@ function App() {
 
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [location, setLocation] = useState(null);
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -31,15 +32,11 @@ function App() {
 
   const handleMenuClick = () => {
     setActiveModal("profile-menu");
-    console.log("Works?");
   };
 
   const closeActiveModal = () => {
     setActiveModal("");
-    console.log("Yes?");
   };
-
-  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -47,7 +44,9 @@ function App() {
         const filteredWeatherData = filterWeatherData(data);
         setWeatherData(filteredWeatherData);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Failed to fetch weather data:", error);
+      });
   }, []);
 
   return (
@@ -70,7 +69,7 @@ function App() {
       <ModalWithForm
         title="New garment"
         buttonText="Add Garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         closeActiveModal={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">

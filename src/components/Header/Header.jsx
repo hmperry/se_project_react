@@ -27,7 +27,11 @@ function Header({ weatherData, handleAddClick, handleMenuClick }) {
         <img src={avatar} alt="User Avatar" className="header__avatar" />
       </div>
       <button className="header__menu" type="button" onClick={handleMenuClick}>
-        <img src={menu} alt="" className="header__menu-icon" />
+        <img
+          src={menu}
+          alt="WTWR or What to Wear logo"
+          className="header__menu-icon"
+        />
       </button>
     </header>
   );

@@ -1,10 +1,12 @@
 # Project 10: WTWR
 
+## Intro
+
 This project is a weather app that displays the temperature and associated suggested clothing based on the weather for a given geographic location.
 
-### Tech Stack
+## Tech Stack
 
-The techonologies listed below were used to create the application:
+The technologies listed below were used to create the application:
 
 - HTML
 - CSS
@@ -14,8 +16,8 @@ The techonologies listed below were used to create the application:
 - Vite template
 - Figma
 
-### Deployment
+## Deployment
 
-This app is deployed to GitHub pages:
+This app is deployed to GitHub pages and available at:
 
-- [link]
+https://hmperry.github.io/se_project_react
