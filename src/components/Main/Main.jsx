@@ -3,6 +3,8 @@ import "./Main.css";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
 import MobileModal from "../MobileModal/MobileModal.jsx";
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 
 function Main({
   weatherData,
@@ -12,6 +14,8 @@ function Main({
   closeActiveModal,
 }) {
   const temp = Math.round(weatherData.temp.F);
+
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   return (
     <section className="main">
       <MobileModal
@@ -20,10 +24,11 @@ function Main({
         closeActiveModal={closeActiveModal}
       />
       {activeModal !== "profile-menu" && (
-        <WeatherCard weatherData={weatherData} temp={temp} />
+        <WeatherCard weatherData={weatherData} />
       )}
       <h1 className="main__heading">
-        Today is {temp}&deg; F / Your may want to wear:
+        Today is {weatherData.temp[currentTemperatureUnit]}
+        &deg; {currentTemperatureUnit} / Your may want to wear:
       </h1>
       <ul className="cards__list">
         {defaultClothingItems

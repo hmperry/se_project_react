@@ -2,18 +2,22 @@ import "./Header.css";
 import logo from "../../assets/wtwrLogo.svg";
 import avatar from "../../assets/placeholderAvatar.png";
 import menu from "../../assets/hamburger_menu.png";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function Header({ weatherData, handleAddClick, handleMenuClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
   return (
     <header className="header">
       <img src={logo} alt="What to Wear Logo" className="header__logo" />
       <div className="header__date-and-location">
         {currentDate}, {weatherData.city}
       </div>
+      <ToggleSwitch />
 
       <button
         onClick={handleAddClick}

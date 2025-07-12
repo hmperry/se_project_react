@@ -24,7 +24,7 @@
 }
 
 .header__add-clothes {
-  margin-left: auto;
+  /* margin-left: auto; */
   padding: 0 24px 0 0;
   font-weight: 700;
   font-size: 20px;
@@ -32,6 +32,10 @@
   border: none;
   background-color: none;
   visibility: visible;
+}
+
+.header__switch {
+  margin-left: auto;
 }
 
 @media screen and (min-width: 750px) {
