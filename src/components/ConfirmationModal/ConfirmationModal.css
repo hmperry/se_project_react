@@ -1,0 +1,31 @@
+.confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  visibility: hidden;
+}
+
+.confirmation__preview {
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 16px;
+  width: 498px;
+  height: 610px;
+  top: 106px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}

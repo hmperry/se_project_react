@@ -1,2 +1,20 @@
-.clothesSection {
+.clothes-section {
+  padding-top: 63px;
+}
+
+.clothes-section__subhead {
+  font-size: 20px;
+  line-height: 100%;
+  font-weight: 700;
+  font-family: Cabinet Grotesk;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 16px;
+  column-gap: 20px;
+}
+
+.clothes-section__add-new {
+  border: none;
+  background-color: none;
+  color: rgba(0, 0, 0, 0.6);
 }

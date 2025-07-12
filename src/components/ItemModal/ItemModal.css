@@ -32,6 +32,7 @@
 .modal__footer {
   padding: 20px 0 32px 32px;
   background-color: rgba(243, 243, 243, 1);
+  position: relative;
 }
 
 .modal__caption {
@@ -54,6 +55,18 @@
   background-image: url("../../assets/close_white.png");
   height: 16px;
   width: 16px;
+}
+
+.itemModal__delete-card {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
+  background-color: none;
+  color: rgba(255, 77, 0, 1);
+  position: absolute;
+  right: 32px;
+  top: 20px;
 }
 
 @media screen and (max-width: 750px) {

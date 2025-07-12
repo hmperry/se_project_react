@@ -1,7 +1,7 @@
 import WeatherCard from "../WeatherCard/WeatherCard.jsx";
 import "./Main.css";
 import ItemCard from "../ItemCard/ItemCard.jsx";
-import { defaultClothingItems } from "../../utils/constants.js";
+
 import MobileModal from "../MobileModal/MobileModal.jsx";
 import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
@@ -12,6 +12,7 @@ function Main({
   activeModal,
   handleMenuClick,
   closeActiveModal,
+  clothingItems,
 }) {
   const temp = Math.round(weatherData.temp.F);
 
@@ -31,7 +32,7 @@ function Main({
         &deg; {currentTemperatureUnit} / Your may want to wear:
       </h1>
       <ul className="cards__list">
-        {defaultClothingItems
+        {clothingItems
           .filter((item) => {
             return item.weather === weatherData.type;
           })
