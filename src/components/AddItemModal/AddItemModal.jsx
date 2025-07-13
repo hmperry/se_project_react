@@ -1,4 +1,4 @@
-import "./addItemModal.css";
+import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState, createContext } from "react";
 
