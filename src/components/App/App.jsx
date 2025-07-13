@@ -13,8 +13,9 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants.js";
+// import { defaultClothingItems } from "../../utils/constants.js";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.jsx";
+import { addNewClothing, deleteClothing, getItems } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -27,7 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [location, setLocation] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -42,6 +43,19 @@ function App() {
     setActiveModal("confirmation-delete");
   };
 
+  const handleCardDelete = () => {
+    deleteClothing(selectedCard._id)
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((item) => item._id !== selectedCard._id)
+        );
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error("Failed to delete:", error);
+      });
+  };
+
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -54,16 +68,20 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({
-    garmentName,
-    garmentUrl,
-    weatherType,
-  }) => {
-    // update clothing items array
-    setClothingItems([
-      { name: garmentName, link: garmentUrl, weather: weatherType },
-      ...clothingItems,
-    ]);
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    addNewClothing({
+      name,
+      imageUrl,
+      weather,
+    })
+      .then((data) => {
+        console.log(data);
+        setClothingItems([data, ...clothingItems]);
+      })
+      .catch((error) => {
+        console.error("Failed to save clothing", error);
+      });
+
     //close modal
     closeActiveModal();
   };
@@ -77,6 +95,14 @@ function App() {
       .catch((error) => {
         console.error("Failed to fetch weather data:", error);
       });
+  }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch(console.error);
   }, []);
 
   return (
@@ -130,7 +156,7 @@ function App() {
           onDeleteClick={openConfirmationModal}
         />
         <ConfirmationModal
-          activeModal={activeModal}
+          onConfDeleteClick={handleCardDelete}
           isOpen={activeModal === "confirmation-delete"}
           closeActiveModal={closeActiveModal}
         />

@@ -11,7 +11,7 @@ function ItemCard({ item, onCardClick }) {
         <h2 className="itemCard__heading">{item.name}</h2>
         <img
           onClick={handleCardClick}
-          src={item.link}
+          src={item.imageUrl}
           alt={item.name}
           className="itemCard__image"
         />

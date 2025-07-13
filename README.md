@@ -13,11 +13,10 @@ The technologies listed below were used to create the application:
 - Javascript
 - API network requests
 - React
+- React routes
 - Vite template
 - Figma
 
 ## Deployment
 
-This app is deployed to GitHub pages and available at:
-
-https://hmperry.github.io/se_project_react
+This app is not deployed to GitHub pages, but will be in a coming sprint. This is to avoid errors with the local database.

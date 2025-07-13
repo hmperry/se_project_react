@@ -17,7 +17,7 @@ function ItemModal({
           className="modal__close modal__close-preview"
         ></button>
         <img
-          src={selectedCard.link}
+          src={selectedCard.imageUrl}
           alt={selectedCard.name}
           className="modal__img"
         />
