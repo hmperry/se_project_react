@@ -22,12 +22,16 @@ function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onAddItemModalSubmit({ name, imageUrl, weather });
+    onAddItemModalSubmit({ name, imageUrl, weather }).then(() => {
+      setName("");
+      setImageUrl("");
+      setWeather("");
+    });
 
     //empty inputs
-    setName("");
-    setImageUrl("");
-    setWeather("");
+    // setName("");
+    // setImageUrl("");
+    // setWeather("");
   };
 
   return (

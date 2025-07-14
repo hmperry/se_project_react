@@ -69,7 +69,7 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    addNewClothing({
+    return addNewClothing({
       name,
       imageUrl,
       weather,
@@ -77,13 +77,13 @@ function App() {
       .then((data) => {
         console.log(data);
         setClothingItems([data, ...clothingItems]);
+
+        //close modal
+        closeActiveModal();
       })
       .catch((error) => {
         console.error("Failed to save clothing", error);
       });
-
-    //close modal
-    closeActiveModal();
   };
 
   useEffect(() => {
