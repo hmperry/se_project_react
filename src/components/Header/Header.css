@@ -23,6 +23,16 @@
   visibility: visible;
 }
 
+.header__avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.header__logged-in {
+  display: flex;
+  flex-direction: row;
+}
+
 .header__add-clothes {
   /* margin-left: auto; */
   padding: 0 20px 0;

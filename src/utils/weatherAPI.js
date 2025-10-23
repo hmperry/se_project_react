@@ -1,3 +1,20 @@
+export const getLocation = () => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // Success! You get the user's coordinates
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        resolve({ latitude, longitude });
+      },
+      (error) => {
+        // Handle errors (user denied permission, etc.)
+        reject(error);
+      }
+    );
+  });
+};
+
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`

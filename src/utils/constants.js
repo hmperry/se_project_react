@@ -1,6 +1,6 @@
 export const coordinates = {
-  latitude: 40.7128,
-  longitude: -74.006,
+  latitude: "",
+  longitude: "",
 };
 
 export const APIkey = "55ec16b12914df3a7fa6b5590134b3b5";
