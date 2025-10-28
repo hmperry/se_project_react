@@ -1,7 +1,12 @@
 import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
+  const { currentUser } = useContext(CurrentUserContext);
+  console.log("ClothesSection is rendering");
+  console.log("currentUser:", currentUser);
   return (
     <div className="clothes-section">
       <div className="clothes-section__subhead">
@@ -16,9 +21,9 @@ function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
       </div>
       <ul className="cards__list">
         {clothingItems
-          // .filter((item) => {
-          //   return item.weather === weatherData.type;
-          // })
+          .filter((item) => {
+            return item.owner === currentUser._id;
+          })
           .map((item) => {
             return (
               <ItemCard

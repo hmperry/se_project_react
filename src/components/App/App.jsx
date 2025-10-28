@@ -7,6 +7,10 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import AppContext from "../../contexts/AppContext.js";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import { setToken, getToken } from "../../utils/token.js";
+
 import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
@@ -27,22 +31,15 @@ import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
-import AppContext from "../../contexts/AppContext.js";
-import { setToken, getToken } from "../../utils/token.js";
-
 // import { defaultClothingItems } from "../../utils/constants.js";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.jsx";
-import {
-  addNewClothing,
-  deleteClothing,
-  getItems,
-  addNewUser,
-  authenticateUser,
-  getUserInfo,
-} from "../../utils/api.js";
+import * as api from "../../utils/api.js";
+
+import * as auth from "../../utils/auth.js";
 
 function App() {
-  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [currentUser, setCurrentUser] = useState(null);
+  // const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [weatherData, setWeatherData] = useState({
@@ -71,7 +68,8 @@ function App() {
   };
 
   const handleCardDelete = () => {
-    deleteClothing(selectedCard._id)
+    const token = getToken();
+    return deleteClothing(selectedCard._id, token)
       .then(() => {
         setClothingItems(
           clothingItems.filter((item) => item._id !== selectedCard._id)
@@ -113,12 +111,13 @@ function App() {
   };
 
   const handleRegisterSubmit = ({ name, avatarUrl, email, password }) => {
-    return addNewUser({
-      name,
-      avatarUrl,
-      email,
-      password,
-    })
+    return auth
+      .addNewUser({
+        name,
+        avatarUrl,
+        email,
+        password,
+      })
       .then((data) => {
         console.log(data);
         setClothingItems([data, ...clothingItems]);
@@ -131,36 +130,44 @@ function App() {
       });
   };
 
-  const handleLogInSubmit = async ({ email, password }) => {
-    return authenticateUser({
-      email,
-      password,
-    })
-      .then(async (data) => {
+  const handleLogInSubmit = ({ email, password }) => {
+    return auth
+      .authenticateUser({
+        email,
+        password,
+      })
+      .then((data) => {
         console.log(data);
         setToken(data.token);
+        api
+          .getUserInfo(data.token)
+          .then((userProfileData) => {
+            setCurrentUser(userProfileData);
+          })
+          .catch((error) => {
+            console.error("Error fetching user info:", error);
+          });
         setIsLoggedIn(true);
-        const currentUserData = await getUserInfo(data.token);
-        setUserData(currentUserData);
 
         //close modal
         closeActiveModal();
       })
       .catch((error) => {
-        console.error("Failed to save clothing", error);
+        console.error("Failed to log in", error);
       });
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const token = getToken();
-    return addNewClothing(
-      {
-        name,
-        imageUrl,
-        weather,
-      },
-      token
-    )
+    return api
+      .addNewClothing(
+        {
+          name,
+          imageUrl,
+          weather,
+        },
+        token
+      )
       .then((data) => {
         console.log(data);
         setClothingItems([data, ...clothingItems]);
@@ -187,7 +194,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems()
+    api
+      .getItems()
       .then((data) => {
         setClothingItems(data);
       })
@@ -195,7 +203,7 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
@@ -207,7 +215,6 @@ function App() {
               handleMenuClick={handleMenuClick}
               handleRegistrationClick={handleRegistrationClick}
               handleLogInClick={handleLogInClick}
-              userData={userData}
             />
             <Routes>
               <Route
@@ -269,7 +276,7 @@ function App() {
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>
-    </AppContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

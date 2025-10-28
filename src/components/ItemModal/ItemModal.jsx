@@ -1,5 +1,7 @@
 import "../ModalWithForm/ModalWithForm";
 import "../ItemModal/ItemModal.css";
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({
   activeModal,
@@ -8,6 +10,19 @@ function ItemModal({
   onDeleteClick,
   isOpen,
 }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
+  // Checking if the current user is the owner of the current clothing item
+  const isOwn =
+    currentUser && currentUser._id
+      ? selectedCard.owner === currentUser._id
+      : false;
+
+  // Creating a variable which you'll then set in `className` for the delete button
+  const itemDeleteButtonClassName = `modal__delete-button ${
+    isOwn ? "" : "modal__delete-button_hidden"
+  }`;
+
   return (
     <div className={`modal ${activeModal === "preview" ? "modal__open" : ""}`}>
       <div className="itemModal__preview">
@@ -27,7 +42,7 @@ function ItemModal({
           <button
             onClick={onDeleteClick}
             type="button"
-            className="itemModal__delete-card"
+            className={itemDeleteButtonClassName}
           >
             Delete item
           </button>

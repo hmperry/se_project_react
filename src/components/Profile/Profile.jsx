@@ -4,8 +4,11 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 import ItemCard from "../ItemCard/ItemCard";
 import "../Main/Main.css";
 import SideBar from "../SideBar/SideBar";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Profile({ clothingItems, handleCardClick, handleAddClick }) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <div className="profile">
       <section className="profile__sidebar">

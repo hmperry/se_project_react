@@ -1,5 +1,6 @@
 import "./Header.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import { Link } from "react-router-dom";
 import logo from "../../assets/wtwrLogo.svg";
@@ -15,14 +16,25 @@ function Header({
   handleMenuClick,
   handleRegistrationClick,
   handleLogInClick,
-  userData,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
 
-  const { isLoggedIn } = useContext(AppContext);
+  const [avatarLoadError, setAvatarLoadError] = useState(false);
+
+  const handleAvatarLoad = () => {
+    setAvatarLoadError(true);
+  };
+
+  const { currentUser } = useContext(CurrentUserContext);
+  // const { isLoggedIn } = useContext(AppContext);
+
+  // get first letter of user name
+  const getFirstLetter = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "";
+  };
 
   return (
     <header className="header">
@@ -33,7 +45,7 @@ function Header({
         {currentDate}, {weatherData.city}
       </div>
       <ToggleSwitch />
-      {!isLoggedIn && (
+      {!currentUser && (
         <div>
           <button
             onClick={handleRegistrationClick}
@@ -52,7 +64,7 @@ function Header({
           </button>
         </div>
       )}
-      {isLoggedIn && (
+      {currentUser && (
         <div className="header__logged-in">
           <button
             onClick={handleAddClick}
@@ -63,12 +75,19 @@ function Header({
           </button>
           <Link to="/profile" className="header__navlink">
             <div className="header__user-content">
-              <li>{userData.name}</li>
-              <img
-                src={userData.avatarUrl}
-                alt="User Avatar"
-                className="header__avatar"
-              />
+              <li>{currentUser.name}</li>
+              {currentUser?.avatarUrl && avatarLoadError === false ? (
+                <img
+                  src={currentUser.avatarUrl}
+                  alt={currentUser.name}
+                  className="header__avatar"
+                  onError={handleAvatarLoad}
+                />
+              ) : (
+                <div className="header__avatar-placeholder">
+                  {getFirstLetter(currentUser?.name)}
+                </div>
+              )}
             </div>
           </Link>
           <button

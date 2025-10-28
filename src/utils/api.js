@@ -28,32 +28,13 @@ function addNewClothing({ name, imageUrl, weather }, token) {
   });
 }
 
-function deleteClothing(_id) {
+function deleteClothing(_id, token) {
   return request(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-  });
-}
-
-// POST /signup //
-function addNewUser({ name, email, password, avatarUrl }) {
-  return request(`${baseUrl}/signup`, {
-    method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name, avatarUrl, email, password }),
-  });
-}
-
-// POST /signin //
-function authenticateUser({ email, password }) {
-  return request(`${baseUrl}/signin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
   });
 }
 
@@ -71,11 +52,4 @@ function getUserInfo(token) {
   });
 }
 
-export {
-  getItems,
-  addNewClothing,
-  deleteClothing,
-  addNewUser,
-  authenticateUser,
-  getUserInfo,
-};
+export { getItems, addNewClothing, deleteClothing, getUserInfo, request };

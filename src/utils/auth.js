@@ -1,27 +1,24 @@
-export const BASE_URL = "https://api.nomoreparties.co";
+const baseUrl = "http://localhost:3001";
+import { request } from "./api";
 
-export const register = (username, password, email) => {
-  return fetch(`${BASE_URL}/auth/local/register`, {
+// POST /signup //
+export function addNewUser({ name, email, password, avatarUrl }) {
+  return request(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password, email }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    body: JSON.stringify({ name, avatarUrl, email, password }),
   });
-};
+}
 
-export const authorize = (identifier, password) => {
-  return fetch(`${BASE_URL}/auth/local`, {
+// POST /signin //
+export function authenticateUser({ email, password }) {
+  return request(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ identifier, password }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    body: JSON.stringify({ email, password }),
   });
-};
+}

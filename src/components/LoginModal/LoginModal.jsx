@@ -2,8 +2,11 @@ import "./LoginModal.css";
 import "../ModalWithForm/ModalWithForm.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState, createContext } from "react";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function LoginModal({ isOpen, closeActiveModal, onLoginSubmit, switchModal }) {
+  const currentUser = useContext(CurrentUserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
