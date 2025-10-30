@@ -30,6 +30,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
+import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 
 // import { defaultClothingItems } from "../../utils/constants.js";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal.jsx";
@@ -42,6 +43,8 @@ function App() {
   // const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
+
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999, C: 999 },
@@ -53,9 +56,19 @@ function App() {
   const [location, setLocation] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [isLiked, setIsLiked] = useState([]);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
+  };
+
+  const handleLikeClick = (card) => {
+    // setSelectedCard(card);
+    if (isLiked.includes(card._id)) {
+      setIsLiked(isLiked.filter((id) => id !== card._id));
+    } else {
+      setIsLiked((isLiked) => [...isLiked, card._id]);
+    }
   };
 
   const handleCardClick = (card) => {
@@ -110,6 +123,31 @@ function App() {
     }
   };
 
+  const handleSignOut = () => {
+    setToken("");
+    setIsLoggedIn(false);
+    setCurrentUser("");
+    navigate("/");
+  };
+
+  const handleEditProfileClick = () => {
+    setActiveModal("EditProfile");
+  };
+
+  const handleEditSubmit = ({ name, avatarUrl }) => {
+    const token = getToken();
+    return api
+      .updateProfile({ name, avatarUrl }, token)
+      .then((data) => {
+        setCurrentUser(data);
+        //close modal
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error("Failed to save profile changes", error);
+      });
+  };
+
   const handleRegisterSubmit = ({ name, avatarUrl, email, password }) => {
     return auth
       .addNewUser({
@@ -131,23 +169,24 @@ function App() {
   };
 
   const handleLogInSubmit = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+
     return auth
       .authenticateUser({
         email,
         password,
       })
       .then((data) => {
-        console.log(data);
-        setToken(data.token);
-        api
-          .getUserInfo(data.token)
-          .then((userProfileData) => {
+        console.log("Login response data:", data);
+        if (data.token) {
+          setToken(data.token);
+          api.getUserInfo(data.token).then((userProfileData) => {
             setCurrentUser(userProfileData);
-          })
-          .catch((error) => {
-            console.error("Error fetching user info:", error);
           });
-        setIsLoggedIn(true);
+          setIsLoggedIn(true);
+        }
 
         //close modal
         closeActiveModal();
@@ -156,6 +195,25 @@ function App() {
         console.error("Failed to log in", error);
       });
   };
+
+  useEffect(() => {
+    console.log("useEffect running, checking for token...");
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+
+    api
+      .getUserInfo(jwt)
+      .then((userProfileData) => {
+        // If the response is successful, log the user in, save their
+        // data to state, and navigate them to /ducks.
+        setIsLoggedIn(true);
+        setCurrentUser(userProfileData);
+      })
+      .catch(console.error);
+  }, []);
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const token = getToken();
@@ -203,7 +261,17 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
+    <CurrentUserContext.Provider
+      value={{
+        currentUser,
+        isLoggedIn,
+        handleSignOut,
+        handleLikeClick,
+        handleEditProfileClick,
+        isLiked,
+        activeModal,
+      }}
+    >
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
@@ -273,6 +341,11 @@ function App() {
             isOpen={activeModal === "login"}
             closeActiveModal={closeActiveModal}
             switchModal={switchModal}
+          />
+          <EditProfileModal
+            isOpen={activeModal === "EditProfile"}
+            closeActiveModal={closeActiveModal}
+            onEditProfileSubmit={handleEditSubmit}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>

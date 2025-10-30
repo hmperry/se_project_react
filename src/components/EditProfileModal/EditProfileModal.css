@@ -1,0 +1,83 @@
+.itemModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.itemModal__preview {
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 16px;
+  width: 498px;
+  height: 610px;
+  top: 106px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.modal__footer {
+  padding: 20px 0 32px 32px;
+  background-color: rgba(243, 243, 243, 1);
+  position: relative;
+}
+
+.modal__caption {
+  padding: 0 0 12px 0;
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__weather {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.modal__close-preview {
+  background-image: url("../../assets/close_white.png");
+  height: 16px;
+  width: 16px;
+}
+
+.modal__delete-button {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  border: none;
+  background-color: none;
+  color: rgba(255, 77, 0, 1);
+  position: absolute;
+  right: 32px;
+  top: 20px;
+}
+
+.modal__delete-button_hidden {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 750px) {
+  .itemModal__preview {
+    border-radius: 12px;
+    width: 343px;
+    height: 463px;
+    top: 180px;
+  }
+}

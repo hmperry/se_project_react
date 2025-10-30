@@ -1,6 +1,13 @@
 import "./ItemCard.css";
+import like from "../../assets/like.svg";
+import liked from "../../assets/liked.svg";
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemCard({ item, onCardClick }) {
+  const { currentUser, handleLikeClick, isLiked } =
+    useContext(CurrentUserContext);
+
   const handleCardClick = () => {
     onCardClick(item);
   };
@@ -8,7 +15,16 @@ function ItemCard({ item, onCardClick }) {
   return (
     <li className="itemCard__container">
       <div className="itemCard__tile">
-        <h2 className="itemCard__heading">{item.name}</h2>
+        <div className="itemCard__top-info">
+          <h2 className="itemCard__heading">{item.name}</h2>
+          <img
+            onClick={() => handleLikeClick(item)}
+            src={isLiked.includes(item._id) ? liked : like}
+            alt="like button"
+            className="itemCard__like"
+          />
+        </div>
+
         <img
           onClick={handleCardClick}
           src={item.imageUrl}

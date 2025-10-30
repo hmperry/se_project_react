@@ -8,7 +8,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Profile({ clothingItems, handleCardClick, handleAddClick }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <div className="profile">
       <section className="profile__sidebar">

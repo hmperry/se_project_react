@@ -37,6 +37,17 @@ function deleteClothing(_id, token) {
     },
   });
 }
+// PATCH /updateprofile //
+function updateProfile({ name, avatarUrl }, token) {
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatarUrl }),
+  });
+}
 
 // GET /userinfo //
 function getUserInfo(token) {
@@ -52,4 +63,11 @@ function getUserInfo(token) {
   });
 }
 
-export { getItems, addNewClothing, deleteClothing, getUserInfo, request };
+export {
+  getItems,
+  addNewClothing,
+  deleteClothing,
+  getUserInfo,
+  request,
+  updateProfile,
+};

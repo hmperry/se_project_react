@@ -2,12 +2,27 @@
   list-style: none;
 }
 
-.itemCard__heading {
+.itemCard__top-info {
   position: absolute;
+  display: flex;
+  column-gap: 10px;
   background-color: rgba(255, 255, 255, 1);
   padding: 2px 12px;
   border-radius: 4px;
   margin-top: 15px;
+  font-weight: 700;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 20px;
+}
+
+.itemCard__heading {
+  /* position: absolute; */
+  /* background-color: rgba(255, 255, 255, 1); */
+  /* padding: 2px 12px; */
+  /* border-radius: 4px; */
+  margin: 0px;
   font-weight: 700;
   font-family: "Cabinet Grotesk";
   font-size: 16px;

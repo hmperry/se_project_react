@@ -1,4 +1,6 @@
 import "../ModalWithForm/ModalWithForm.css";
+import { useContext, useState } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ModalWithForm({
   children,
@@ -10,6 +12,7 @@ function ModalWithForm({
   buttonText2,
   switchModal,
 }) {
+  const { activeModal } = useContext(CurrentUserContext);
   return (
     <div className={`modal ${isOpen ? "modal__open" : ""}`}>
       <form onSubmit={onSubmit} className="modal__form">
@@ -25,7 +28,15 @@ function ModalWithForm({
             {buttonText}
           </button>
 
-          <button type="button" className="modal__link" onClick={switchModal}>
+          <button
+            type="button"
+            className={
+              activeModal === "EditProfile"
+                ? "modal__link-hidden"
+                : "modal__link"
+            }
+            onClick={switchModal}
+          >
             {buttonText2}
           </button>
         </div>

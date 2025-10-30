@@ -12,6 +12,17 @@ export function addNewUser({ name, email, password, avatarUrl }) {
   });
 }
 
+// PATCH /updateprofile //
+export function updateProfile({ name, avatarUrl }) {
+  return request(`${baseUrl}/profile`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, avatarUrl }),
+  });
+}
+
 // POST /signin //
 export function authenticateUser({ email, password }) {
   return request(`${baseUrl}/signin`, {
