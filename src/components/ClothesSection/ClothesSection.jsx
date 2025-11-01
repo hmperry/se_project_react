@@ -2,9 +2,10 @@ import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 import { useContext, useState } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import * as api from "../../utils/api.js";
 
 function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, setClothingItems } = useContext(CurrentUserContext);
   console.log("ClothesSection is rendering");
   console.log("currentUser:", currentUser);
 
@@ -57,6 +58,8 @@ function ClothesSection({ clothingItems, handleCardClick, handleAddClick }) {
                 key={item._id}
                 item={item}
                 onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                isLiked={item.likes.includes(currentUser._id)}
               />
             );
           })}

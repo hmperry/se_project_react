@@ -13,6 +13,8 @@ function Main({
   handleMenuClick,
   closeActiveModal,
   clothingItems,
+  onCardLike,
+  handleCardLike,
 }) {
   const temp = Math.round(weatherData.temp.F);
 
@@ -42,6 +44,7 @@ function Main({
                 key={item._id}
                 item={item}
                 onCardClick={handleCardClick}
+                onCardLike={onCardLike}
               />
             );
           })}

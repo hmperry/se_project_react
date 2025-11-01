@@ -49,6 +49,30 @@ function updateProfile({ name, avatarUrl }, token) {
   });
 }
 
+// PATCH /add like to card //
+function addCardLike(_id, token) {
+  return request(`${baseUrl}/items/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ action: "add" }),
+  });
+}
+
+// PATCH /remove like from card //
+function removeCardLike(_id, token) {
+  return request(`${baseUrl}/items/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ action: "remove" }),
+  });
+}
+
 // GET /userinfo //
 function getUserInfo(token) {
   return request(`${baseUrl}/users/me`, {
@@ -70,4 +94,6 @@ export {
   getUserInfo,
   request,
   updateProfile,
+  addCardLike,
+  removeCardLike,
 };
