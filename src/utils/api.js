@@ -51,25 +51,25 @@ function updateProfile({ name, avatarUrl }, token) {
 
 // PATCH /add like to card //
 function addCardLike(_id, token) {
-  return request(`${baseUrl}/items/${_id}`, {
-    method: "PATCH",
+  return request(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ action: "add" }),
+    // body: JSON.stringify({ action: "add" }),
   });
 }
 
 // PATCH /remove like from card //
 function removeCardLike(_id, token) {
-  return request(`${baseUrl}/items/${_id}`, {
-    method: "PATCH",
+  return request(`${baseUrl}/items/${_id}/likes`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ action: "remove" }),
+    // body: JSON.stringify({ action: "remove" }),
   });
 }
 

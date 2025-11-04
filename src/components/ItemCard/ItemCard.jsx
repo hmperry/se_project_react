@@ -5,22 +5,25 @@ import { useContext, useState } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemCard({ item, onCardClick, onCardLike, isLiked }) {
-  const { handleCardLike } = useContext(CurrentUserContext);
-
   const handleCardClick = () => {
     onCardClick(item);
   };
+
+  const { isLoggedIn } = useContext(CurrentUserContext);
+
+  console.log("onCardLike:", onCardLike, typeof onCardLike);
 
   return (
     <li className="itemCard__container">
       <div className="itemCard__tile">
         <div className="itemCard__top-info">
           <h2 className="itemCard__heading">{item.name}</h2>
+
           <img
             onClick={() => onCardLike({ id: item._id, isLiked })}
             src={isLiked ? liked : like}
             alt="like button"
-            className="itemCard__like"
+            className={`${isLoggedIn ? "itemCard__Like" : "itemCard__nolike"}`}
           />
         </div>
 

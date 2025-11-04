@@ -14,12 +14,51 @@ function RegisterModal({
   const [password, setPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
 
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = (name, email, password) => {
+    const newErrors = {};
+    let formIsValid = true;
+
+    // Name validation
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      formIsValid = false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+      formIsValid = false;
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email";
+      formIsValid = false;
+    }
+
+    // Password validation
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+      formIsValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+    setIsValid(formIsValid);
+    return formIsValid;
+  };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    validateForm(name, email, e.target.value);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    validateForm(name, e.target.value, password);
   };
 
   const handleAvatarUrlChange = (e) => {
@@ -28,6 +67,7 @@ function RegisterModal({
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+    validateForm(e.target.value, email, password);
   };
 
   const handleSubmit = (e) => {
@@ -50,6 +90,7 @@ function RegisterModal({
       closeActiveModal={closeActiveModal}
       onSubmit={handleSubmit}
       switchModal={switchModal}
+      isValid={isValid}
     >
       <label htmlFor="email" className="modal__label">
         Email*

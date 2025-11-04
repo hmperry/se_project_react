@@ -28,7 +28,7 @@ function Header({
     setAvatarLoadError(true);
   };
 
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   // const { isLoggedIn } = useContext(AppContext);
 
   // get first letter of user name
@@ -45,7 +45,7 @@ function Header({
         {currentDate}, {weatherData.city}
       </div>
       <ToggleSwitch />
-      {!currentUser && (
+      {!isLoggedIn && (
         <div>
           <button
             onClick={handleRegistrationClick}
@@ -64,7 +64,7 @@ function Header({
           </button>
         </div>
       )}
-      {currentUser && (
+      {isLoggedIn && (
         <div className="header__logged-in">
           <button
             onClick={handleAddClick}

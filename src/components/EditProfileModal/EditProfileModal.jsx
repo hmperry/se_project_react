@@ -12,12 +12,12 @@ function EditProfileModal({
 }) {
   const { currentUser, handleSignOut, handleEditProfileClick } =
     useContext(CurrentUserContext);
+  const [name, setName] = useState(currentUser.name);
+  const [avatarUrl, setAvatarUrl] = useState(currentUser.avatarUrl);
+
   if (!currentUser) {
     return <div>Loading...</div>;
   }
-
-  const [name, setName] = useState(currentUser.name);
-  const [avatarUrl, setAvatarUrl] = useState(currentUser.avatarUrl);
 
   const handleAvatarUrlChange = (e) => {
     setAvatarUrl(e.target.value);

@@ -11,8 +11,14 @@ function ModalWithForm({
   onSubmit,
   buttonText2,
   switchModal,
+  isValid = false,
 }) {
   const { activeModal } = useContext(CurrentUserContext);
+
+  const buttonClassName = `modal__submit ${
+    isValid ? "modal__submit_enabled" : "modal__submit_disabled"
+  }`;
+
   return (
     <div className={`modal ${isOpen ? "modal__open" : ""}`}>
       <form onSubmit={onSubmit} className="modal__form">
@@ -24,7 +30,7 @@ function ModalWithForm({
         />
         {children}
         <div className="modal__bottom">
-          <button type="submit" className="modal__submit">
+          <button type="submit" className={buttonClassName} disabled={!isValid}>
             {buttonText}
           </button>
 

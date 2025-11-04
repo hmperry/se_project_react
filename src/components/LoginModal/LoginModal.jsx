@@ -9,13 +9,45 @@ function LoginModal({ isOpen, closeActiveModal, onLoginSubmit, switchModal }) {
   const currentUser = useContext(CurrentUserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateLogin = (email, password) => {
+    const newErrors = {};
+    let formIsValid = true;
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+      formIsValid = false;
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email";
+      formIsValid = false;
+    }
+
+    // Password validation
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+      formIsValid = false;
+    } else if (password.length < 3) {
+      newErrors.password = "Password must be at least 6 characters";
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+    setIsValid(formIsValid);
+    return formIsValid;
+  };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    validateLogin(email, e.target.value);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    validateLogin(e.target.value, password);
   };
 
   const handleSubmit = (e) => {
@@ -36,6 +68,7 @@ function LoginModal({ isOpen, closeActiveModal, onLoginSubmit, switchModal }) {
       onSubmit={handleSubmit}
       buttonText2="or Sign Up"
       switchModal={switchModal}
+      isValid={isValid}
     >
       <label htmlFor="email" className="modal__label">
         Email*

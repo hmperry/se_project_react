@@ -14,7 +14,8 @@ function Main({
   closeActiveModal,
   clothingItems,
   onCardLike,
-  handleCardLike,
+  // handleCardLike,
+  currentUser,
 }) {
   const temp = Math.round(weatherData.temp.F);
 
@@ -45,6 +46,7 @@ function Main({
                 item={item}
                 onCardClick={handleCardClick}
                 onCardLike={onCardLike}
+                isLiked={item.likes.includes(currentUser._id)}
               />
             );
           })}

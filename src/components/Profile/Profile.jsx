@@ -7,7 +7,12 @@ import SideBar from "../SideBar/SideBar";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Profile({ clothingItems, handleCardClick, handleAddClick }) {
+function Profile({
+  clothingItems,
+  handleCardClick,
+  handleAddClick,
+  handleCardLike,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
   return (
     <div className="profile">
@@ -19,6 +24,7 @@ function Profile({ clothingItems, handleCardClick, handleAddClick }) {
           clothingItems={clothingItems}
           handleCardClick={handleCardClick}
           handleAddClick={handleAddClick}
+          onCardLike={handleCardLike}
         />
       </section>
     </div>

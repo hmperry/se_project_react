@@ -7,16 +7,60 @@ function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
 
+  const [isValid, setIsValid] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateNewGarment = (name, imageUrl, weather) => {
+    const newErrors = {};
+    let formIsValid = true;
+
+    // Name validation
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      formIsValid = false;
+    }
+
+    // Image URL validation
+    if (!imageUrl || imageUrl.trim() === "") {
+      newErrors.imageUrl = "Please provide an image URL";
+      formIsValid = false;
+    } else {
+      // URL format validation
+      const urlRegex = /^https?:\/\/.+/;
+      if (!urlRegex.test(imageUrl)) {
+        newErrors.imageUrl =
+          "Please enter a valid URL starting with http:// or https://";
+        formIsValid = false;
+      }
+    }
+
+    // Weather type validation
+    if (!weather || weather.trim() === "") {
+      newErrors.weather = "Please select a weather type";
+      formIsValid = false;
+    } else if (!["hot", "warm", "cold"].includes(weather)) {
+      newErrors.weather = "Please select a valid weather type";
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+    setIsValid(formIsValid);
+    return formIsValid;
+  };
+
   const handleNameChange = (e) => {
     setName(e.target.value);
+    validateNewGarment(e.target.value, imageUrl, weather);
   };
 
   const handleUrlChange = (e) => {
     setImageUrl(e.target.value);
+    validateNewGarment(name, e.target.value, weather);
   };
 
   const handleWeatherTypeChange = (e) => {
     setWeather(e.target.value);
+    validateNewGarment(name, imageUrl, e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -41,6 +85,7 @@ function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
       isOpen={isOpen}
       closeActiveModal={closeActiveModal}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label htmlFor="name" className="modal__label">
         Name
@@ -106,6 +151,10 @@ function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
           />
           <span className="radio__option">Cold</span>
         </label>
+
+        {errors.weather && (
+          <span className="modal__error">{errors.weather}</span>
+        )}
       </fieldset>
     </ModalWithForm>
   );

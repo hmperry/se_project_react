@@ -39,7 +39,7 @@ import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({ name: "", avatarUrl: "" });
   // const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -56,7 +56,7 @@ function App() {
   const [location, setLocation] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [isLiked, setIsLiked] = useState([]);
+  // const [isLiked, setIsLiked] = useState([]);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -80,8 +80,9 @@ function App() {
           // the first argument is the card's id
           .addCardLike(id, token)
           .then((updatedCard) => {
+            console.log("API Response:", updatedCard);
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
           .catch((err) => console.log(err))
@@ -90,8 +91,9 @@ function App() {
           // the first argument is the card's id
           .removeCardLike(id, token)
           .then((updatedCard) => {
+            console.log("API Response:", updatedCard); // Add this line
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
           .catch((err) => console.log(err));
@@ -108,7 +110,8 @@ function App() {
 
   const handleCardDelete = () => {
     const token = getToken();
-    return deleteClothing(selectedCard._id, token)
+    return api
+      .deleteClothing(selectedCard._id, token)
       .then(() => {
         setClothingItems(
           clothingItems.filter((item) => item._id !== selectedCard._id)
@@ -152,7 +155,7 @@ function App() {
   const handleSignOut = () => {
     setToken("");
     setIsLoggedIn(false);
-    setCurrentUser("");
+    setCurrentUser({ name: "", avatarUrl: "" });
     navigate("/");
   };
 
@@ -293,7 +296,6 @@ function App() {
         isLoggedIn,
         handleSignOut,
         handleEditProfileClick,
-        isLiked,
         activeModal,
         setClothingItems,
       }}
@@ -322,6 +324,7 @@ function App() {
                     closeActiveModal={closeActiveModal}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
+                    currentUser={currentUser}
                   />
                 }
               ></Route>

@@ -48,6 +48,15 @@
   width: 100%;
 }
 
+.itemCard__like {
+  visibility: visible;
+}
+
+.itemCard__nolike {
+  visibility: hidden;
+  display: none;
+}
+
 @media screen and (max-width: 750px) {
   .itemCard__tile {
     width: 164px;
