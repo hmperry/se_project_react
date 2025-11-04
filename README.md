@@ -2,7 +2,7 @@
 
 ## Intro
 
-This project is a weather app that displays the temperature and associated suggested clothing based on the weather for a given geographic location.
+This project is a weather app that displays the temperature and associated suggested clothing based on the weather for a given geographic location. The app includes capability to register and authenticate users and save associated clothing preferences to a backend database.
 
 ## Tech Stack
 
@@ -16,7 +16,9 @@ The technologies listed below were used to create the application:
 - React routes
 - Vite template
 - Figma
+- Express
 
 ## Deployment
 
-This app is not deployed to GitHub pages, but will be in a coming sprint. This is to avoid errors with the local database.
+- Front End: https://github.com/hmperry/se_project_react.git
+- Back End: https://github.com/hmperry/se_project_express.git
