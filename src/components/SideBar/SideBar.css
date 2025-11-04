@@ -12,11 +12,17 @@
   width: 229px;
   column-gap: 16px;
   padding-right: 116px;
+  padding-bottom: 4px;
+
+  align-items: center;
 }
 
 .sidebar__avatar {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .sidebar__username {
@@ -24,6 +30,7 @@
   line-height: 100%;
   font-weight: 700;
   font-family: Cabinet Grotesk;
+  margin: 0;
 }
 
 .sidebar__logout {

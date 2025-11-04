@@ -10,7 +10,7 @@ function SideBar() {
     <div className="sidebar">
       <div className="sidebar__user-content">
         <img
-          src={currentUser.avatarUrl}
+          src={currentUser.avatar}
           className="sidebar__avatar"
           alt="Default avatar"
         />

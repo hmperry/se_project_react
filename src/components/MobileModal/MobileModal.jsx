@@ -2,12 +2,7 @@ import avatar from "../../assets/placeholderAvatar.png";
 import "../ModalWithForm/ModalWithForm";
 import "../MobileModal/MobileModal.css";
 
-function MobileModal({
-  activeModal,
-  closeActiveModal,
-  handleMenuClick,
-  handleAddClick,
-}) {
+function MobileModal({ activeModal, closeActiveModal, handleAddClick }) {
   return (
     <div
       className={`mobileModal ${

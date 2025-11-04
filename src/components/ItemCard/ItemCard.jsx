@@ -23,7 +23,7 @@ function ItemCard({ item, onCardClick, onCardLike, isLiked }) {
             onClick={() => onCardLike({ id: item._id, isLiked })}
             src={isLiked ? liked : like}
             alt="like button"
-            className={`${isLoggedIn ? "itemCard__Like" : "itemCard__nolike"}`}
+            className={`${isLoggedIn ? "itemCard__like" : "itemCard__nolike"}`}
           />
         </div>
 

@@ -1,18 +1,11 @@
-import { useEffect, useState, createContext } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-import AppContext from "../../contexts/AppContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
-import { setToken, getToken } from "../../utils/token.js";
+import { setToken, getToken, removeToken } from "../../utils/token.js";
 
 import "./App.css";
-import { coordinates, APIkey } from "../../utils/constants";
+import { APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -23,7 +16,6 @@ import {
   filterWeatherData,
   getLocation,
 } from "../../utils/weatherAPI";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
@@ -39,7 +31,7 @@ import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ name: "", avatarUrl: "" });
+  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "" });
   // const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -153,9 +145,9 @@ function App() {
   };
 
   const handleSignOut = () => {
-    setToken("");
+    removeToken();
     setIsLoggedIn(false);
-    setCurrentUser({ name: "", avatarUrl: "" });
+    setCurrentUser({ name: "", avatar: "" });
     navigate("/");
   };
 
@@ -163,10 +155,10 @@ function App() {
     setActiveModal("EditProfile");
   };
 
-  const handleEditSubmit = ({ name, avatarUrl }) => {
+  const handleEditSubmit = ({ name, avatar }) => {
     const token = getToken();
     return api
-      .updateProfile({ name, avatarUrl }, token)
+      .updateProfile({ name, avatar }, token)
       .then((data) => {
         setCurrentUser(data);
         //close modal
@@ -177,20 +169,26 @@ function App() {
       });
   };
 
-  const handleRegisterSubmit = ({ name, avatarUrl, email, password }) => {
+  const handleRegisterSubmit = ({ name, avatar, email, password }) => {
     return auth
       .addNewUser({
         name,
-        avatarUrl,
+        avatar,
         email,
         password,
       })
-      .then((data) => {
-        console.log(data);
-        setClothingItems([data, ...clothingItems]);
-
-        //close modal
+      .then(() => {
+        return auth.authenticateUser({ email, password });
+      })
+      .then((authenticateresponse) => {
+        setToken(authenticateresponse.token);
+        return api.getUserInfo(authenticateresponse.token);
+      })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
         closeActiveModal();
+        navigate("/");
       })
       .catch((error) => {
         console.error("Failed to save clothing", error);
@@ -219,6 +217,7 @@ function App() {
 
         //close modal
         closeActiveModal();
+        navigate("/");
       })
       .catch((error) => {
         console.error("Failed to log in", error);
@@ -324,7 +323,6 @@ function App() {
                     closeActiveModal={closeActiveModal}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
-                    currentUser={currentUser}
                   />
                 }
               ></Route>

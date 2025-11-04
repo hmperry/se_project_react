@@ -12,7 +12,7 @@ function RegisterModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const [isValid, setIsValid] = useState(false);
   const [errors, setErrors] = useState({});
@@ -62,7 +62,7 @@ function RegisterModal({
   };
 
   const handleAvatarUrlChange = (e) => {
-    setAvatarUrl(e.target.value);
+    setAvatar(e.target.value);
   };
 
   const handleNameChange = (e) => {
@@ -73,9 +73,9 @@ function RegisterModal({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onRegisterSubmit({ name, password, avatarUrl, email }).then(() => {
+    onRegisterSubmit({ name, password, avatar, email }).then(() => {
       setName("");
-      setAvatarUrl("");
+      setAvatar("");
       setEmail("");
       setPassword("");
     });
@@ -92,12 +92,12 @@ function RegisterModal({
       switchModal={switchModal}
       isValid={isValid}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="register-email" className="modal__label">
         Email*
         <input
           type="email"
           className="modal__input"
-          id="email"
+          id="register-email"
           placeholder="Email"
           required
           onChange={handleEmailChange}
@@ -105,12 +105,12 @@ function RegisterModal({
         />
       </label>
 
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="register-password" className="modal__label">
         Password*
         <input
           type="password"
           className="modal__input"
-          id="password"
+          id="register-password"
           placeholder="Password"
           required
           onChange={handlePasswordChange}
@@ -118,12 +118,12 @@ function RegisterModal({
         />
       </label>
 
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="register-name" className="modal__label">
         Name*
         <input
           type="text"
           className="modal__input"
-          id="name"
+          id="register-name"
           placeholder="Name"
           required
           onChange={handleNameChange}
@@ -131,16 +131,16 @@ function RegisterModal({
         />
       </label>
 
-      <label htmlFor="avatarURL" className="modal__label">
+      <label htmlFor="register-avatarURL" className="modal__label">
         Avatar URL*
         <input
           type="url"
           className="modal__input"
-          id="avatarURL"
+          id="register-avatarURL"
           placeholder="Avatar URL"
           required
           onChange={handleAvatarUrlChange}
-          value={avatarUrl}
+          value={avatar}
         />
       </label>
     </ModalWithForm>

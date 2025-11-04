@@ -76,9 +76,9 @@ function Header({
           <Link to="/profile" className="header__navlink">
             <div className="header__user-content">
               <li>{currentUser.name}</li>
-              {currentUser?.avatarUrl && avatarLoadError === false ? (
+              {currentUser?.avatar && avatarLoadError === false ? (
                 <img
-                  src={currentUser.avatarUrl}
+                  src={currentUser.avatar}
                   alt={currentUser.name}
                   className="header__avatar"
                   onError={handleAvatarLoad}

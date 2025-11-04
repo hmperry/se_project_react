@@ -5,6 +5,7 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import MobileModal from "../MobileModal/MobileModal.jsx";
 import { useContext } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 function Main({
   weatherData,
@@ -15,10 +16,8 @@ function Main({
   clothingItems,
   onCardLike,
   // handleCardLike,
-  currentUser,
 }) {
-  const temp = Math.round(weatherData.temp.F);
-
+  const { currentUser } = useContext(CurrentUserContext);
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   return (
     <section className="main">

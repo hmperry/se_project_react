@@ -1,6 +1,6 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 
 function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
   const [name, setName] = useState("");
@@ -87,12 +87,12 @@ function AddItemModal({ isOpen, closeActiveModal, onAddItemModalSubmit }) {
       onSubmit={handleSubmit}
       isValid={isValid}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="addItem-name" className="modal__label">
         Name
         <input
           type="text"
           className="modal__input"
-          id="name"
+          id="addItem-name"
           placeholder="Name"
           required
           onChange={handleNameChange}

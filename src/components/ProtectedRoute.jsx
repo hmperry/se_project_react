@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import AppContext from "../contexts/AppContext";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { Navigate, useLocation } from "react-router-dom";
 
