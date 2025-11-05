@@ -72,7 +72,7 @@ function EditProfileModal({
   useEffect(() => {
     setName(currentUser.name);
     setAvatar(currentUser.avatar);
-  }, [currentUser]);
+  }, [isOpen]);
 
   return (
     <ModalWithForm

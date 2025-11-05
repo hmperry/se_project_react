@@ -1,5 +1,5 @@
 import "../ModalWithForm/ModalWithForm.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ModalWithForm({
@@ -14,13 +14,25 @@ function ModalWithForm({
   isValid = false,
 }) {
   const { activeModal } = useContext(CurrentUserContext);
+  const modalFormRef = useRef(null);
 
   const buttonClassName = `modal__submit ${
     isValid ? "modal__submit_enabled" : "modal__submit_disabled"
   }`;
 
+  useEffect(() => {
+    const closeByClick = (e) => {
+      if (modalFormRef.current && !modalFormRef.current.contains(e.target)) {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("mousedown", closeByClick);
+
+    return () => document.removeEventListener("mousedown", closeByClick);
+  }, [modalFormRef]);
+
   return (
-    <div className={`modal ${isOpen ? "modal__open" : ""}`}>
+    <div ref={modalFormRef} className={`modal ${isOpen ? "modal__open" : ""}`}>
       <form onSubmit={onSubmit} className="modal__form">
         <h2 className="modal__title">{title}</h2>
         <button
@@ -34,17 +46,11 @@ function ModalWithForm({
             {buttonText}
           </button>
 
-          <button
-            type="button"
-            className={
-              activeModal === "EditProfile"
-                ? "modal__link-hidden"
-                : "modal__link"
-            }
-            onClick={switchModal}
-          >
-            {buttonText2}
-          </button>
+          {buttonText2 && (
+            <button type="button" className="modal__link" onClick={switchModal}>
+              {buttonText2}
+            </button>
+          )}
         </div>
       </form>
     </div>

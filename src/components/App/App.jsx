@@ -256,7 +256,7 @@ function App() {
       )
       .then((data) => {
         console.log(data);
-        setClothingItems([data, ...clothingItems]);
+        setClothingItems([data.data, ...clothingItems]);
 
         //close modal
         closeActiveModal();
@@ -286,6 +286,17 @@ function App() {
         setClothingItems(data);
       })
       .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
   return (
