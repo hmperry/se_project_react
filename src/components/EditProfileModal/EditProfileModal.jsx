@@ -78,7 +78,6 @@ function EditProfileModal({
     <ModalWithForm
       title="Edit Profile"
       buttonText="Save changes"
-      buttonText2="Cancel"
       isOpen={isOpen}
       closeActiveModal={closeActiveModal}
       onSubmit={handleSubmit}

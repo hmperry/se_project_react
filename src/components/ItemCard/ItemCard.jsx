@@ -11,7 +11,7 @@ function ItemCard({ item, onCardClick, onCardLike, isLiked }) {
 
   const { isLoggedIn } = useContext(CurrentUserContext);
 
-  console.log("onCardLike:", onCardLike, typeof onCardLike);
+  // console.log("onCardLike:", onCardLike, typeof onCardLike);
 
   return (
     <li className="itemCard__container">

@@ -24,8 +24,14 @@ function ItemModal({
   }`;
 
   return (
-    <div className={`modal ${activeModal === "preview" ? "modal__open" : ""}`}>
-      <div className="itemModal__preview">
+    <div
+      onMouseDown={closeActiveModal}
+      className={`modal ${activeModal === "preview" ? "modal__open" : ""}`}
+    >
+      <div
+        className="itemModal__preview"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <button
           onClick={closeActiveModal}
           type="button"

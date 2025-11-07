@@ -11,29 +11,25 @@ function ModalWithForm({
   onSubmit,
   buttonText2,
   switchModal,
+
   isValid = false,
 }) {
   const { activeModal } = useContext(CurrentUserContext);
-  const modalFormRef = useRef(null);
 
   const buttonClassName = `modal__submit ${
     isValid ? "modal__submit_enabled" : "modal__submit_disabled"
   }`;
 
-  useEffect(() => {
-    const closeByClick = (e) => {
-      if (modalFormRef.current && !modalFormRef.current.contains(e.target)) {
-        closeActiveModal();
-      }
-    };
-    document.addEventListener("mousedown", closeByClick);
-
-    return () => document.removeEventListener("mousedown", closeByClick);
-  }, [modalFormRef]);
-
   return (
-    <div ref={modalFormRef} className={`modal ${isOpen ? "modal__open" : ""}`}>
-      <form onSubmit={onSubmit} className="modal__form">
+    <div
+      onMouseDown={closeActiveModal}
+      className={`modal ${isOpen ? "modal__open" : ""}`}
+    >
+      <form
+        onSubmit={onSubmit}
+        className="modal__form"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <h2 className="modal__title">{title}</h2>
         <button
           onClick={closeActiveModal}
