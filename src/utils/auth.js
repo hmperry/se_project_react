@@ -1,4 +1,8 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwrappdemo.jumpingcrab.com"
+    : "http://localhost:3001";
+
 import { request } from "./api";
 
 // POST /signup //
